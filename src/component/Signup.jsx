@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const Login = () => {
+const Signup = () => {
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
-    password: "",   
+    password: "",
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -18,16 +19,16 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login attempt:", formData);
-    setIsLoggedIn(true);
+    console.log("Signup attempt:", formData);
+    setIsSignedUp(true);
   };
 
-  if (isLoggedIn) {
+  if (isSignedUp) {
     return <Navigate to="/dashboard" />;
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 to-purple-900 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-900 to-teal-900 p-6">
       <motion.div 
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -35,9 +36,23 @@ const Login = () => {
         className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl"
       >
         <h2 className="text-4xl font-extrabold mb-6 text-center text-gray-900">
-          Welcome Back
+          Create an Account
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-gray-700 mb-2 text-lg" htmlFor="name">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-4 focus:ring-green-500 transition-all"
+              required
+            />
+          </div>
           <div>
             <label className="block text-gray-700 mb-2 text-lg" htmlFor="email">
               Email Address
@@ -48,7 +63,7 @@ const Login = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-4 focus:ring-green-500 transition-all"
               required
             />
           </div>
@@ -62,7 +77,7 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-4 focus:ring-green-500 transition-all"
               required
             />
           </div>
@@ -70,17 +85,17 @@ const Login = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md"
+            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all shadow-md"
           >
-            Sign In
+            Sign Up
           </motion.button>
         </form>
         <p className="text-center text-gray-600 mt-6">
-          Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Sign Up</Link>
+          Already have an account? <a href="/login" className="text-green-500 hover:underline">Sign In</a>
         </p>
       </motion.div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;
